@@ -5,7 +5,6 @@ import './index.css';
 import App from './App.jsx';
 import Home from './Home.jsx';
 import Profile from './Profile.jsx'; 
-import InternalPage from './InternalPage.jsx'; 
 import Internal_empty from './Internal_empty.jsx';
 
 createRoot(document.getElementById('root')).render(
@@ -16,7 +15,6 @@ createRoot(document.getElementById('root')).render(
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} /> 
         <Route path="/internal-empty" element={<Internal_empty />} /> 
-        <Route path="/internal" element={<InternalPage />} /> 
       </Routes>
     </Router>
   </StrictMode>

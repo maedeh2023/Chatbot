@@ -34,20 +34,37 @@ const Navbar = () => {
 const Internal_empty = () => {
   const [inputValue, setInputValue] = useState(''); 
   const navigate = useNavigate(); 
-  const [response, setResponse] = useState('');
+  const [definition, setDefinition] = useState('');
+  const [showDefinition, setShowDefinition] = useState(false);
 
   const [showInternalPage, setShowInternalPage] = useState(false);
 
   const handleButtonClick = async () => {
     console.log('Input value:', inputValue);
     try {
-      const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en_US/`);
+      const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en_US/${inputValue}`);
       console.log('API response:', response);
-      setResponse(response.data.text);
+      if (response.data && response.data[0] && response.data[0].meanings) {
+        setDefinition(response.data[0].meanings[0].definitions[0].definition);
+        setShowDefinition(true);
+      }
+      setTimeout(() => {
+        setShowInternalPage(true);
+      }, 2000); // wait for 2 seconds before showing the internal page
     } catch (error) {
       console.error(error);
     }
   };
+
+  const handleInputValueChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  if (showDefinition) {
+    return <InternalPage inputValue={inputValue} definition={definition} showDefinition={showDefinition} handleInputValueChange={handleInputValueChange} />;
+  }
+
+  
   return (
     <div>
        <Navbar /> 
@@ -92,7 +109,7 @@ const Internal_empty = () => {
   
   
  
-  <div class="flex px-4 py-3 rounded-full border-2  border-gray-300 overflow-hidden w-full  font-[sans-serif]">
+  <div className="flex px-4 py-3 rounded-full border-2  border-gray-300 overflow-hidden w-full  font-[sans-serif]">
   <input 
                 type="text" 
                 placeholder="Search ..."
@@ -117,7 +134,7 @@ const Internal_empty = () => {
 };
 
 
-const InternalPage = ({ inputValue }) => {
+const InternalPage = ({ inputValue, definition, showDefinition, handleInputValueChange }) => {
  
   return (
     <div>
@@ -132,13 +149,15 @@ const InternalPage = ({ inputValue }) => {
 <img className=' h-5 w-5' src="src/assets/edit.png.png" alt="" /> <p className='mx-3 text-gray-700'>Edit </p>
 <img className=' h-5 w-5' src="src/assets/copy.png.png" alt="" /><p className='mx-3 text-gray-700'> Copy</p>
 </div>
-<hr class="border-t border-gray-300 my-5 " />
+<hr className="border-t border-gray-300 my-5 " />
 
 
 <div className='flex justify-start items-center mx-4 mt-6'>
   <img className='h-8 w-8 mr-5' src="src/assets/icon.png" alt="" /> <p className='font-bold'>Chat Bot AI</p>
 </div>
-<div className='m-5 text-left'>Once upon a time, in the quaint town of Meadowville, there lived a spirited high school student named Lily. Lily was known for her enthusiasm for learning and her adventurous spirit. One crisp autumn morning, as she set out for school, little did she know that this ordinary day would turn into an extraordinary adventure.
+<div className='m-5 text-left'>{showDefinition && (
+           <p>{definition}</p>
+        )}
 </div>
 
 <div className='flex justify-start items-center mx-4 mt-6'>
@@ -147,46 +166,36 @@ const InternalPage = ({ inputValue }) => {
 <img className=' h-5 w-5' src="src/assets/re.png" alt="" /><p className='mx-3 text-gray-700'> Regenerate</p>
 </div>
 
-<hr class="border-t border-gray-300 my-5 " />
+<hr className="border-t border-gray-300 my-5 " />
 
 
-<div className='flex justify-start items-center mx-4 mt-6'>
-  <img className='h-8 w-8 mr-5' src="src/assets/avatar.png" alt="" /> <p className='font-bold'>You</p>
-</div>
-<div className='m-5 text-left text-green-500'>Once upon a time, in the quaint town of Meadowville, there lived a spirited high school student named Lily. Lily was known for her enthusiasm for learning and her adventurous spirit. One crisp autumn morning, as she set out for school, little did she know that this ordinary day would turn into an extraordinary adventure.
-</div>
 
-<div className='flex justify-start items-center mx-4 mt-6'>
-<img className=' h-5 w-5' src="src/assets/copy.png.png" alt="" /> <p className='mx-3 text-gray-700'>Copy </p>
-<img className=' h-5 w-5' src="src/assets/edit.png.png" alt="" /> <p className='mx-3 text-gray-700'>Edit </p>
-</div>
 
-<div class="flex px-4 py-3 rounded-full border-2  border-gray-300 overflow-hidden w-full mt-8  font-[sans-serif]">
-  <input 
-                type="text" 
-                placeholder="Ask me anything..."
-                className="w-full outline-none bg-transparent text-gray-600 text-sm" 
-              />
-             
-              <img 
-                src="src/assets/Frame.png" 
-                alt="Submit" 
-                className="cursor-pointer" 
-                onClick={handleButtonClick} 
 
-              />
-</div>
 
+        
+        <footer className="fixed bottom-0 w-full bg-white p-4">
+        <div className="flex px-4 py-3 rounded-full border-2  border-gray-300 overflow-hidden w-full mt-8  font-[sans-serif]">
+          <input 
+            type="text" 
+            placeholder="Ask me anything..."
+            value={inputValue} 
+            onChange={handleInputValueChange}
+            className="w-full outline-none bg-transparent text-gray-600 text-sm" 
+          />
+          <img 
+            src="src/assets/Frame.png" 
+            alt="Submit" 
+            className="cursor-pointer" 
+          />
         </div>
-        </section>
-        {response && (
-        <div>
-          <h2>API Response:</h2>
-          <p>{response}</p>
-        </div>
-      )}
+      </footer>
+      
+      </div>
+      </section>
     </div>
-  );
+    
+  )
 };
 
 
