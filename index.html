@@ -4,15 +4,113 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   </head>
   <body>
-    <div id="root">
-      <div>
-        <h1>jhgjhgjhgjhj</h1>
-
+    <div id="root" class="grid gap-4">
+      <div class="max-lg">
+        <img src="src/assets/icon.png" alt="" />
+        <h1 class="text-4xl font-bold mt-4 text-left">Login to your <br/> account</h1>
+        <p class="text-left text-gray-500 mt-4">Don't have an account? <span class="text-green-400">Sign Up</span></p>
+      </div>
+      <div class="max-w-md">
+        <form id="loginForm">
+          <div class="mb-4">
+            <div class="relative flex items-center">
+              <img src="src/assets/Front icon.png" alt="" class="w-6 h-6 absolute ml-3 text-gray-700" />
+              <input 
+                class="pr-3 pl-10 appearance-none border rounded-xl w-full py-3 px3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email"
+                type="email"
+                placeholder="Email"
+              />
+            </div>
+            <p id="emailError" class="text-red-500 text-sm text-left mt-3 hidden">Invalid email</p>
+          </div>
+          <div class="mb-6">
+            <div class="relative flex items-center">
+              <img src="src/assets/First.png" alt="" class="w-6 h-6 absolute ml-3 text-gray-700" />
+              <input
+                class="pr-3 pl-10 appearance-none border rounded-xl w-full py-3 px3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="password"
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            <p id="passwordError" class="text-red-500 text-sm text-left mt-3 hidden">Password must be 8 characters</p>
+            <p class="text-green-500 flex justify-end mt-3">Forget Password?</p>
+          </div>
+          <div class="flex items-center">
+            <button
+              class="w-full h-14 bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Login
+            </button>
+          </div>
+          <p class="text-center text-gray-500 pt-6">Or login with </p>
+          <div class="flex justify-center mt-3 gap-3 w-full">
+            <div class="flex-1">
+              <button
+                class="w-full h-14 bg-gray-200 hover:bg-green-600 text-black font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline flex items-center justify-center"
+                type="button"
+              >
+                <img src="src/assets/Group.png" alt="" class="w-6 h-6 mr-2" />
+                Google
+              </button>
+            </div>
+            <div class="flex-1">
+              <button
+                class="w-full h-14 bg-gray-200 hover:bg-green-600 text-black font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline flex items-center justify-center"
+                type="button"
+              >
+                <img src="src/assets/facebook.png" alt="" class="w-6 h-6 mr-2" />
+                Facebook
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class="text-center mt-20 text-gray-500">Terms of use | Privacy policy</p>
       </div>
     </div>
-    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        let valid = true;
+
+        // Validate email
+        const emailError = document.getElementById('emailError');
+        if (!validateEmail(email)) {
+          emailError.classList.remove('hidden');
+          valid = false;
+        } else {
+          emailError.classList.add('hidden');
+        }
+
+        // Validate password
+        const passwordError = document.getElementById('passwordError');
+        if (password.length < 8) {
+          passwordError.classList.remove('hidden');
+          valid = false;
+        } else {
+          passwordError.classList.add('hidden');
+        }
+
+        if (valid) {
+          // Proceed with login
+          console.log('Logging in with', email, password);
+        }
+      });
+
+      function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+      }
+    </script>
   </body>
 </html>

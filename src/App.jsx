@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 
 
@@ -8,9 +8,9 @@ const App = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState(""); // State for email error
-  const [passwordError, setPasswordError] = useState(""); // State for password error
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState(""); 
+  const navigate = useNavigate(); 
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -21,27 +21,26 @@ const App = () => {
   };
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault();
 
- // Hardcoded credentials for demonstration
+
  const validEmail = "maedeh@gmail.com";
  const validPassword = "password";
 
-    // Email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-      setEmailError("Invalid email"); // Set email error message
-      return; // Exit the function if email is invalid
+      setEmailError("Invalid email"); 
+      return; 
     }
 
-    // Password validation
+ 
     if (password.length !== 8) {
-      setPasswordError("Password must be 8 characters"); // Set password error message
-      return; // Exit the function if password length is not 8
+      setPasswordError("Password must be 8 characters"); 
+      return; 
     }
 
  if (email === validEmail && password === validPassword) {
-  // Redirect to home page if credentials are correct
+
   navigate("/home");
 } else {
   alert("Invalid email or password");
