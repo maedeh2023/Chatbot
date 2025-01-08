@@ -172,30 +172,29 @@ const InternalPage = ({ inputValue, definition, showDefinition, handleInputValue
 
 
 
-
-        
-        <footer className="fixed bottom-0 w-full bg-white p-4">
-        <div className="flex px-4 py-3 rounded-full border-2  border-gray-300 overflow-hidden w-full mt-8  font-[sans-serif]">
-          <input 
-            type="text" 
-            placeholder="Ask me anything..."
-            value={inputValue} 
-            onChange={handleInputValueChange}
-            className="w-full outline-none bg-transparent text-gray-600 text-sm" 
-          />
-          <img 
-            src="src/assets/Frame.png" 
-            alt="Submit" 
-            className="cursor-pointer" 
-          />
         </div>
-      </footer>
-      
-      </div>
-      </section>
+        </section>
+        <div className="mt-auto">
+<div className="flex px-4 py-3 rounded-full border-2  border-gray-300 overflow-hidden w-full mt-8  font-[sans-serif]">
+  <input 
+                type="text" 
+                placeholder="Ask me anything..."
+                onChange={handleInputValueChange}
+                className="w-full outline-none bg-transparent text-gray-600 text-sm" 
+              />
+             
+              <img 
+                src="src/assets/Frame.png" 
+                alt="Submit" 
+                className="cursor-pointer" 
+               
+
+              />
+</div>
+</div>
+        
     </div>
-    
-  )
+  );
 };
 
 
