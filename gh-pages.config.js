@@ -1,8 +1,8 @@
 module.exports = {
     branch: 'main',
-    repo: 'https://github.com/your-username/your-repo-name.git',
+    repo: 'https://github.com/maedeh2023/Chatbot.git',
     user: {
-      name: 'Your Name',
-      email: 'your-email@example.com'
+      name: 'maedeh2023',
+      email: 'maedehjalili16@gmail.com'
     }
   };
